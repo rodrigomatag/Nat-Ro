@@ -50,6 +50,11 @@
             font-style: italic;
             color: #d63384;
         }
+        .countdown {
+            font-size: 1.5rem;
+            color: #d63384;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -72,10 +77,40 @@
         </div>
     </div>
 
+    <div class="countdown" id="countdown">
+        Cargando cuenta regresiva...
+    </div>
+
     <div class="romantic-message">
         <p>Mi amor, para mí tú eres muy especial y no hay nada que no quiera hacer contigo. Quise hacer este momento más especial y de alguna forma que tengas elementos para que podamos recordarlo. Así nuestra primera cita puede ser inolvidable, literalmente.</p>
         <p>Te amo ❤️</p>
     </div>
 </div>
+
+<script>
+    // Configuración de la fecha de la cita
+    const targetDate = new Date('2025-01-31T13:00:00'); // Viernes 31 a la 1 PM
+
+    function updateCountdown() {
+        const now = new Date();
+        const difference = targetDate - now;
+
+        if (difference <= 0) {
+            document.getElementById('countdown').textContent = "¡Es el momento de nuestra cita! 💖";
+            return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').textContent = 
+            `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos para nuestra cita.`;
+    }
+
+    // Actualizar cada segundo
+    setInterval(updateCountdown, 1000);
+</script>
 </body>
 </html>
