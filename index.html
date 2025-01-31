@@ -16,6 +16,8 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            text-align: center;
+            transition: background 1s ease-in-out;
         }
         .container {
             text-align: center;
@@ -25,12 +27,10 @@
             padding: 20px;
             max-width: 600px;
             width: 90%;
+            transition: opacity 1s ease-in-out;
         }
         h1 {
             color: #d63384;
-        }
-        .image-container {
-            margin: 20px 0;
         }
         .image-container img {
             max-width: 50%;
@@ -38,34 +38,43 @@
             border-radius: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+        #countdown {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #d63384;
+            margin: 20px 0;
+        }
+        .hidden {
+            display: none;
+        }
         .google-maps {
             margin-top: 10px;
         }
-        p {
-            margin: 10px 0;
-            color: #555;
+        .play-button {
+            background-color: #d63384;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
         }
-        .romantic-message {
-            margin-top: 20px;
-            font-style: italic;
-            color: #d63384;
-        }
-        .countdown {
-            font-size: 1.5rem;
-            color: #d63384;
-            margin-top: 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="content">
         <h1>¿Aceptarías tener una cita conmigo?</h1>
-
+        <p>Mi amor, para mí tú eres muy especial y no hay nada que no quiera hacer contigo. Quise hacer este momento más especial y de alguna forma que tengas elementos para que podamos recordarlo. Así nuestra primera cita puede ser inolvidable, literalmente.</p>
         <div class="image-container">
             <img src="https://i.imgur.com/GDTcUKG.jpg" alt="Lugar de la cita">
             <p>💕Completemos nuestro full circle moment💕.</p>
-            <div class="google-maps">
-                <iframe 
+        </div>
+        <div class="google-maps">
+            <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3762.7496229658125!2d-99.1358081243814!3d19.48410350347332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f97de4bff1cf%3A0x2050356dce7432f1!2sTim%20Hortons%20Encuentro%20Fortuna!5e0!3m2!1ses!2smx!4v1678213492023!5m2!1ses!2smx" 
                 width="100%" 
                 height="250" 
@@ -75,42 +84,59 @@
             </iframe>
             <p><a href="https://www.google.com.mx/maps/place/Tim+Hortons+Encuentro+Fortuna/@19.4841035,-99.1358081,17z/data=!3m2!4b1!5s0x85d1f91e67bf55cb:0x3d1b46503fcad95b!4m6!3m5!1s0x85d1f97de4bff1cf:0x2050356dce7432f1!8m2!3d19.4841035!4d-99.1332332!16s%2Fg%2F11w3z6xrng?entry=ttu&g_ep=EgoyMDI1MDEyMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="color: #d63384; text-decoration: none; font-weight: bold;">Ver ubicación en Google Maps</a></p>
         </div>
+        <p id="countdown"></p>
+        <!-- Botón para reproducir la música -->
+        <button class="play-button" id="playBtn">Reproducir Música</button>
     </div>
 
-    <div class="countdown" id="countdown">
-        Cargando cuenta regresiva...
-    </div>
+    <!-- Música de fondo -->
+    <audio id="bg-music" class="hidden" loop>
+        <source src="tu-cancion.mp3" type="audio/mpeg">
+        Tu navegador no soporta el audio.
+    </audio>
 
-    <div class="romantic-message">
-        <p>Mi amor, para mí tú eres muy especial y no hay nada que no quiera hacer contigo. Quise hacer este momento más especial y de alguna forma que tengas elementos para que podamos recordarlo. Así nuestra primera cita puede ser inolvidable, literalmente.</p>
-        <p>Te amo ❤️</p>
-    </div>
-</div>
+    <script>
+        function startCountdown() {
+            const targetDate = new Date("January 30, 2025 22:20:00").getTime();
+            const countdownElement = document.getElementById("countdown");
+            const content = document.getElementById("content");
+            const music = document.getElementById("bg-music");
+            const playBtn = document.getElementById("playBtn");
+            
+            // Función para actualizar el contador
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+                
+                if (difference <= 0) {
+                    clearInterval(interval);
+                    document.body.style.backgroundColor = "#ffcccc";
+                    content.innerHTML = "<h1>Es momento de unas confesiones y algunas sorpresas...</h1>";
+                    content.style.animation = "fadeIn 2s";
+                    music.play();
+                    return;
+                }
+                
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                countdownElement.innerHTML = `Tiempo restante: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+            
+            updateCountdown();
+            const interval = setInterval(updateCountdown, 1000);
 
-<script>
-    // Configuración de la fecha de la cita
-    const targetDate = new Date('2025-01-31T13:00:00'); // Viernes 31 a la 1 PM
-
-    function updateCountdown() {
-        const now = new Date();
-        const difference = targetDate - now;
-
-        if (difference <= 0) {
-            document.getElementById('countdown').textContent = "¡Es el momento de nuestra cita! 💖";
-            return;
+            // Función para reproducir música al hacer clic
+            playBtn.addEventListener('click', function() {
+                music.play();
+                playBtn.disabled = true; // Deshabilitar el botón después de hacer clic
+            });
         }
 
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        document.getElementById('countdown').textContent = 
-            `${days} días, ${hours} horas, ${minutes} minutos y ${seconds} segundos para nuestra cita.`;
-    }
-
-    // Actualizar cada segundo
-    setInterval(updateCountdown, 1000);
-</script>
+        window.onload = startCountdown;
+    </script>
 </body>
 </html>
+
