@@ -3,113 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💘Nat & Ro💘</title>
+    <title>Naty mi amor💘</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #ffe6f2;
-            color: #333;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
             text-align: center;
-            transition: background 1s ease-in-out;
+            padding: 50px;
         }
         .container {
-            text-align: center;
-            background: #ffffff;
+            background: white;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            max-width: 600px;
-            width: 90%;
-            transition: opacity 1s ease-in-out;
+            display: inline-block;
         }
         h1 {
-            color: #d63384;
+            color: #ff4d6d;
         }
-        .image-container img {
-            max-width: 50%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .buttons {
+            margin-top: 20px;
         }
-        #countdown {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #d63384;
-            margin: 20px 0;
-        }
-        #videoButton {
-            display: none;
-            background-color: #d63384;
-            color: white;
-            font-size: 1.2em;
+        button {
+            font-size: 20px;
             padding: 10px 20px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
+        }
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        #noBtn {
+            background-color: #ddd;
+            color: black;
+            position: absolute;
+        }
+        #message {
+            display: none;
+            font-size: 18px;
+            margin-top: 20px;
+            color: #333;
+        }
+        #imageContainer {
+            display: none;
             margin-top: 20px;
         }
-        #videoButton:hover {
-            background-color: #bb2d6b;
+        #loveImage {
+            width: 200px;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container" id="content">
-        <h1>¿Aceptarías tener una cita conmigo?</h1>
-        <p>Mi amor, para mí tú eres muy especial y no hay nada que no quiera hacer contigo. Quise hacer este momento más especial y de alguna forma que tengas elementos para que podamos recordarlo. Así nuestra primera cita puede ser inolvidable, literalmente.</p>
-        <div class="image-container">
-            <img src="https://i.imgur.com/GDTcUKG.jpg" alt="Lugar de la cita">
-            <p>💕Completemos nuestro full circle moment💕.</p>
+    <div class="container">
+        <h1>Would you be my Valentine? 💖</h1>
+        <div class="buttons">
+            <button id="yesBtn" onclick="showMessage()">Sí</button>
+            <button id="noBtn" onmouseover="moveButton()">No</button>
         </div>
-        <p id="countdown"></p>
-        <button id="videoButton" onclick="openVideo()">Ver Video</button>
+        <p id="message">Gracias por permitirme ser parte de tu vida y hacerme tan feliz desde que estamos juntos. Quiero que este 14 de febrero sea muy especial e inolvidable. ❤️</p>
+        <div id="imageContainer">
+            <img id="loveImage" src="amordecine.jpg" alt="Love Image">
+        </div>
     </div>
 
     <script>
-        function startCountdown() {
-            const targetDate = new Date("January 31, 2025 15:35:00").getTime();
-            const countdownElement = document.getElementById("countdown");
-            const videoButton = document.getElementById("videoButton");
-
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const difference = targetDate - now;
-
-                if (difference <= 0) {
-                    clearInterval(interval);
-                    document.body.style.backgroundColor = "#ffcccc";
-                    countdownElement.innerHTML = "<h1>Es momento de unas confesiones y algunas sorpresas...</h1>";
-                    // Mostrar el botón para ver el video
-                    videoButton.style.display = "inline-block";
-                    return;
-                }
-
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-                countdownElement.innerHTML = `Tiempo restante: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-            }
-
-            updateCountdown();
-            const interval = setInterval(updateCountdown, 1000);
+        function moveButton() {
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 50);
+            document.getElementById('noBtn').style.left = `${x}px`;
+            document.getElementById('noBtn').style.top = `${y}px`;
         }
 
-        function openVideo() {
-            // Abre el video en una nueva pestaña
-            window.open("https://www.youtube.com/watch?v=4Ja6WLrZlAE", "_blank");
+        function showMessage() {
+            document.getElementById('message').style.display = 'block';
+            document.getElementById('imageContainer').style.display = 'block';
         }
-
-        window.onload = startCountdown;
     </script>
 </body>
 </html>
+
+
 
