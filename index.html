@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Naty mi amor💘</title>
+    <title>Mi Amor 💖</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffe6f2;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
             text-align: center;
             padding: 50px;
+            animation: fadeIn 2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .container {
             background: white;
@@ -21,69 +26,29 @@
         h1 {
             color: #ff4d6d;
         }
-        .buttons {
-            margin-top: 20px;
-        }
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        #yesBtn {
-            background-color: #ff4d6d;
-            color: white;
-        }
-        #noBtn {
-            background-color: #ddd;
-            color: black;
-            position: absolute;
-        }
-        #message {
-            display: none;
+        p {
             font-size: 18px;
-            margin-top: 20px;
             color: #333;
         }
-        #imageContainer {
-            display: none;
+        video {
+            width: 50%;
             margin-top: 20px;
-        }
-        #loveImage {
-            width: 200px;
             border-radius: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Would you be my Valentine? 💖</h1>
-        <div class="buttons">
-            <button id="yesBtn" onclick="showMessage()">Yes</button>
-            <button id="noBtn" onmouseover="moveButton()">No</button>
-        </div>
-        <p id="message">Gracias por permitirme ser parte de tu vida y hacerme tan feliz desde que estamos juntos. Quiero que este 14 de febrero sea muy especial e inolvidable. ❤️</p>
-        <div id="imageContainer">
-            <img id="loveImage" src="amordecine.jpg" alt="Love Image">
-        </div>
+        <h1>Feliz Primer Mes, Mi Amor 💘</h1>
+        <p>Gracias por hacerme tan feliz. Este es solo el comienzo de algo hermoso. Te amo ❤️. Aunque no imaginé que celebraríamos nuestro primer mes a la distancia, eso no cambia nada entre nosotros. Sé que cuando dos personas están conectadas, la distancia no importa, y tú y yo lo estamos. Ha sido increíble todo lo que hemos vivido juntos, y deseo compartir muchas más experiencias a tu lado. Es hermoso compartir la vida contigo. 💕😍</p>
+        <video controls autoplay>
+            <source src="video_aniversario.mp4" type="video/mp4">
+            Tu navegador no soporta la reproducción de video.
+        </video>
     </div>
-
-    <script>
-        function moveButton() {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            document.getElementById('noBtn').style.left = `${x}px`;
-            document.getElementById('noBtn').style.top = `${y}px`;
-        }
-
-        function showMessage() {
-            document.getElementById('message').style.display = 'block';
-            document.getElementById('imageContainer').style.display = 'block';
-        }
-    </script>
 </body>
 </html>
+
 
 
 
