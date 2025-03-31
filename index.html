@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Amor 💖</title>
+    <title>Te adoro 😍</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            background: linear-gradient(to right, #ff6b81, #ffb6c1);
             text-align: center;
             padding: 50px;
             animation: fadeIn 2s ease-in;
@@ -23,32 +23,63 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: inline-block;
         }
-        h1 {
-            color: #ff4d6d;
+        h1, #countdown, a {
+            color: #ff2e63;
         }
         p {
             font-size: 18px;
             color: #333;
         }
-        video {
-            width: 50%;
+        #countdown {
+            font-size: 24px;
+            font-weight: bold;
             margin-top: 20px;
-            border-radius: 10px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        audio {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Feliz Primer Mes, Mi Amor 💘</h1>
-        <p>Gracias por hacerme tan feliz. Este es solo el comienzo de algo hermoso. Te amo ❤️. Aunque no imaginé que celebraríamos nuestro primer mes a la distancia, eso no cambia nada entre nosotros. Sé que cuando dos personas están conectadas, la distancia no importa, y tú y yo lo estamos. Ha sido increíble todo lo que hemos vivido juntos, y deseo compartir muchas más experiencias a tu lado. Es hermoso compartir la vida contigo. 💕😍</p>
-        <video controls autoplay>
-            <source src="video_aniversario.mp4" type="video/mp4">
-            Tu navegador no soporta la reproducción de video.
-        </video>
+        <h1>¡Feliz Segundo Mes, Mi Naty hermosa! 💘</h1>
+        <p>Han sido dos meses muy hermosos y llenos de felicidad, pero en verdad quiero que esta vez podamos celebrarlo en persona. Es por eso que nuestra celebración de nuestro segundo mes de novios comenzará el día que nos volvamos a ver. En verdad necesito verte y te extraño mucho, mi amor. ❤️</p>
+        <p>Falta muy poco para vernos... ⏳</p>
+        <div id="countdown"></div>
+        <a href="https://www.google.com/maps/dir/Salamanca,+Guanajuato/CDMX/" target="_blank">Ver la distancia en Google Maps 📍</a>
     </div>
+    <audio id="bg-music" autoplay loop>
+        <source src="el-puente-dld.mp3" type="audio/mpeg">
+        Tu navegador no soporta la reproducción de audio.
+    </audio>
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date("April 15, 2025 00:00:00").getTime();
+            const now = new Date().getTime();
+            const timeLeft = targetDate - now;
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('bg-music');
+            audio.play();
+        });
+    </script>
 </body>
 </html>
-
-
-
-
