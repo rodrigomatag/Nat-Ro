@@ -1,85 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Te adoro 😍</title>
+    <title>Mensaje Especial</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ff6b81, #ffb6c1);
-            text-align: center;
-            padding: 50px;
-            animation: fadeIn 2s ease-in;
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #ffebee;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
+        
+        .spam-word {
+            position: absolute;
+            color: #e91e63;
+            font-weight: bold;
+            font-size: 20px;
+            opacity: 0.8;
+            user-select: none;
+            pointer-events: none;
+            animation: float 5s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(10deg);
+            }
+            50% {
+                transform: translate(100px, 0) rotate(0deg);
+            }
+            75% {
+                transform: translate(50px, -50px) rotate(-10deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+        }
+        
+        .final-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 2s;
+        }
+        
+        .message {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            color: #333;
+            max-width: 80%;
+            margin-top: 20px;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
-        .container {
-            background: white;
+        
+        /* Estilos para el cupón generado */
+        .coupon {
+            width: 280px;
+            height: 380px;
+            background: linear-gradient(135deg, #f5d9ff, #ffd6e7);
+            border-radius: 20px;
             padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            border: 2px dashed #e91e63;
+            margin: 10px;
         }
-        h1, #countdown, a {
-            color: #ff2e63;
+        
+        .coupon::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, #ff00cc, #3333ff);
+            z-index: -1;
+            filter: blur(20px);
+            opacity: 0.3;
         }
-        p {
+        
+        .coupon-title {
+            font-size: 26px;
+            color: #e91e63;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .coupon-heart {
+            font-size: 50px;
+            color: #ff4081;
+            margin: 10px 0;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .coupon-text {
             font-size: 18px;
-            color: #333;
+            color: #9c27b0;
+            margin: 15px 0;
+            line-height: 1.4;
         }
-        #countdown {
-            font-size: 24px;
-            font-weight: bold;
+        
+        .coupon-details {
+            font-size: 14px;
+            color: #7b1fa2;
             margin-top: 20px;
+            font-style: italic;
         }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 18px;
-            text-decoration: none;
-            font-weight: bold;
+        
+        .coupon-stamp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: white;
+            background: #ff5722;
+            padding: 4px 8px;
+            border-radius: 50%;
+            transform: rotate(15deg);
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
         }
-        audio {
-            display: none;
+        
+        .coupon-footer {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            font-size: 12px;
+            color: #e91e63;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>¡Feliz Segundo Mes, Mi Naty hermosa! 💘</h1>
-        <p>Han sido dos meses muy hermosos y llenos de felicidad, pero en verdad quiero que esta vez podamos celebrarlo en persona. Es por eso que nuestra celebración de nuestro segundo mes de novios comenzará el día que nos volvamos a ver. En verdad necesito verte y te extraño mucho, mi amor. ❤️</p>
-        <p>Falta muy poco para vernos... ⏳</p>
-        <div id="countdown"></div>
-        <a href="https://www.google.com/maps/dir/Salamanca,+Guanajuato/CDMX/" target="_blank">Ver la distancia en Google Maps 📍</a>
+    <div id="spam-container"></div>
+    
+    <div class="final-content" id="final-content">
+        <!-- Aquí se generará el cupón dinámicamente -->
+        <div id="coupon-container"></div>
+        <div class="message" id="custom-message">
+            Busco tus besos y no encuentro su sabor,
+            pienso en tu risa y sin pensar caigo en mi error,
+            ya no quiero acudir a recuerdos
+            te quiero aquí
+        </div>
     </div>
-    <audio id="bg-music" autoplay loop>
-        <source src="el-puente-dld.mp3" type="audio/mpeg">
-        Tu navegador no soporta la reproducción de audio.
-    </audio>
+
     <script>
-        function updateCountdown() {
-            const targetDate = new Date("April 15, 2025 00:00:00").getTime();
-            const now = new Date().getTime();
-            const timeLeft = targetDate - now;
-
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        const words = ["preciosa", "💘", "preciosa", "💘", "preciosa", "💘", "preciosa", "💘"];
+        const container = document.getElementById('spam-container');
+        const finalContent = document.getElementById('final-content');
+        const couponContainer = document.getElementById('coupon-container');
+        let spamCount = 0;
+        const maxSpam = 100;
+        
+        function createSpamWord() {
+            if (spamCount >= maxSpam) {
+                clearInterval(spamInterval);
+                setTimeout(cleanScreen, 2000);
+                return;
+            }
+            
+            const word = document.createElement('div');
+            word.className = 'spam-word';
+            word.textContent = words[Math.floor(Math.random() * words.length)];
+            
+            // Posición aleatoria
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            word.style.left = `${x}px`;
+            word.style.top = `${y}px`;
+            
+            // Tamaño aleatorio
+            const size = 15 + Math.random() * 25;
+            word.style.fontSize = `${size}px`;
+            
+            // Color aleatorio (tonos rosados/rojos)
+            const hue = 330 + Math.random() * 30;
+            word.style.color = `hsl(${hue}, 100%, 70%)`;
+            
+            // Animación única
+            const duration = 3 + Math.random() * 7;
+            word.style.animation = `float ${duration}s infinite linear`;
+            
+            container.appendChild(word);
+            spamCount++;
         }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        document.addEventListener('click', function() {
-            const audio = document.getElementById('bg-music');
-            audio.play();
-        });
+        
+        function cleanScreen() {
+            const spamWords = document.querySelectorAll('.spam-word');
+            let delay = 0;
+            
+            spamWords.forEach(word => {
+                setTimeout(() => {
+                    word.style.transition = 'opacity 0.5s';
+                    word.style.opacity = '0';
+                    setTimeout(() => word.remove(), 500);
+                }, delay);
+                
+                delay += 50;
+            });
+            
+            setTimeout(showFinalContent, delay + 1000);
+        }
+        
+        function showFinalContent() {
+            // Generar el cupón dinámicamente
+            couponContainer.innerHTML = `
+                <div class="coupon">
+                    <div class="coupon-stamp">VÁLIDO</div>
+                    <div class="coupon-title">Cupón de Amor</div>
+                    <div class="coupon-heart">💖</div>
+                    <div class="coupon-text">
+                        Canjeable por<br>
+                        <strong>Un día inolvidable juntos</strong><br>
+                        Incluye: abrazos, risas,<br>
+                        conversaciones y amor
+                    </div>
+                    <div class="coupon-details">
+                        Válido por: 24 horas<br>
+                        Caduca: Nunca ❤️
+                    </div>
+                    <div class="coupon-footer">
+                        Para la dueña de mis sonrisas
+                    </div>
+                </div>
+            `;
+            
+            finalContent.style.display = 'flex';
+        }
+        
+        // Iniciar el efecto de spam
+        const spamInterval = setInterval(createSpamWord, 100);
     </script>
 </body>
 </html>
