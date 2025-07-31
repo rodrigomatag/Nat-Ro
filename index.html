@@ -1,346 +1,101 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Feliz Cumpleaños mi amoooorr!</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            min-height: 100vh;
-            overflow-x: hidden;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            padding-bottom: 80px; /* Espacio para el footer */
-        }
+  <meta charset="UTF-8">
+  <title>🌸 6 meses Juntos  🌸</title>
+  <style>
+    body {
+      background: #ffe6f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #b30059;
+      text-align: center;
+      padding: 50px;
+    }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            padding: 20px;
-            max-width: 90%;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #cc0066;
+    }
 
-        h1 {
-            color: #d23669;
-            font-size: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-            margin-bottom: 15px;
-            animation: zoom 2s infinite alternate;
-        }
+    .countdown {
+      font-size: 3em;
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
 
-        @keyframes zoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
+    .time-box {
+      background-color: #ffd9ec;
+      border-radius: 20px;
+      padding: 20px;
+      min-width: 100px;
+      box-shadow: 0 0 10px #ff99cc;
+    }
 
-        .message {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 20px;
-            transform: rotate(-2deg);
-            animation: float 3s ease-in-out infinite;
-            width: 100%;
-            box-sizing: border-box;
-        }
+    .label {
+      font-size: 0.6em;
+      margin-top: 5px;
+      color: #660033;
+    }
 
-        @keyframes float {
-            0%, 100% { transform: rotate(-2deg) translateY(0); }
-            50% { transform: rotate(-2deg) translateY(-8px); }
-        }
-
-        .photo-frame {
-            width: 180px;
-            height: 180px;
-            border: 10px solid white;
-            border-radius: 50%;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            margin: 15px auto;
-            background-color: #eee;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: filter 1.5s ease;
-            filter: blur(5px) contrast(200%) brightness(0.8);
-            image-rendering: pixelated;
-        }
-
-        .photo-frame img.clear {
-            filter: none;
-            image-rendering: auto;
-        }
-
-        .hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 20px;
-            color: #ff6b81;
-            opacity: 0;
-            animation: heart-float 4s ease-in forwards;
-        }
-
-        @keyframes heart-float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(20deg);
-                opacity: 0;
-            }
-        }
-
-        .button-container {
-            margin: 20px 0;
-            width: 100%;
-        }
-
-        .button {
-            background: linear-gradient(45deg, #ff6b81, #ff8e53);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-            font-weight: bold;
-            width: auto;
-            display: inline-block;
-        }
-
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .confetti {
-            position: fixed;
-            top: -10px;
-            width: 10px;
-            height: 10px;
-            background-color: #f00;
-            opacity: 0;
-            z-index: 1;
-            animation: confetti-fall 5s linear forwards;
-        }
-
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        .music-control {
-            position: fixed;
-            bottom: 70px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        .music-control i {
-            font-size: 24px;
-            color: #ff6b81;
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 10px;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-            font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.2);
-            z-index: 10;
-            filter: blur(5px);
-            transition: filter 1.5s ease;
-        }
-
-        footer.clear {
-            filter: none;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    footer {
+      margin-top: 50px;
+      font-size: 1em;
+      color: #993366;
+    }
+  </style>
 </head>
 <body>
-    <div class="hearts" id="hearts"></div>
-    <div id="confetti-container"></div>
 
-    <div class="container">
-        <h1>¡Feliz Cumpleaños mi amoooorr!</h1>
-        
-        <div class="photo-frame">
-            <!-- Reemplaza con tu foto -->
-            <img src="cumple.jpg" alt="Foto especial" id="birthday-photo">
-        </div>
-        
-        <div class="message">
-            <p>¡Aunque hoy no pueda estar físicamente a tu lado, quiero que sepas que mi corazón está contigo en cada momento de este día especial!</p>
-            <p>Eres una persona más increíble y hermosa, mereces el mejor cumpleaños del mundo y quiero tener la oportunidad de hacerte sentir la mujer mas especial del mundo.</p>
-        </div>
-        
-        <div class="button-container">
-            <button class="button" id="surprise-btn">¡Revela la sorpresa!</button>
-        </div>
+  <h1>⏳ ¡Faltan para vernos! 💖</h1>
+  <div class="countdown">
+    <div class="time-box">
+      <div id="days">00</div>
+      <div class="label">días</div>
     </div>
-
-    <div class="music-control" id="music-control">
-        <i class="fas fa-music"></i>
+    <div class="time-box">
+      <div id="hours">00</div>
+      <div class="label">horas</div>
     </div>
+    <div class="time-box">
+      <div id="minutes">00</div>
+      <div class="label">minutos</div>
+    </div>
+    <div class="time-box">
+      <div id="seconds">00</div>
+      <div class="label">segundos</div>
+    </div>
+  </div>
 
-    <footer id="footer-message">pd: ojalá pronto te pueda quitar esos labiales ❤️</footer>
+  <footer>
+    💌 Cada segundo más cerca de ti 🌷
+  </footer>
 
-    <!-- Audio para la música de fondo -->
-    <audio id="bg-music" loop>
-        <source src="Coldplay - feelslikeimfallinginlove (Official Audio).mp3" type="audio/mpeg">
-    </audio>
+  <script>
+    const countdownDate = new Date("August 15, 2025 11:00:00").getTime();
 
-    <script>
-        // Música de fondo
-        const music = document.getElementById('bg-music');
-        const musicControl = document.getElementById('music-control');
-        const photo = document.getElementById('birthday-photo');
-        const footerMessage = document.getElementById('footer-message');
-        let musicPlaying = false;
+    const x = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
 
-        musicControl.addEventListener('click', () => {
-            if (musicPlaying) {
-                music.pause();
-                musicControl.innerHTML = '<i class="fas fa-music"></i>';
-            } else {
-                music.play();
-                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-            musicPlaying = !musicPlaying;
-        });
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        // Corazones flotantes
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
-            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.getElementById('hearts').appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 4000);
-        }
+      document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+      document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+      document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+      document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
 
-        setInterval(createHeart, 300);
+      if (distance < 0) {
+        clearInterval(x);
+        document.querySelector(".countdown").innerHTML = "🎉 ¡Es el gran día, mi amor! 💘";
+      }
+    }, 1000);
+  </script>
 
-        // Efecto de confeti
-        function createConfetti() {
-            const colors = ['#ff6b81', '#ff8e53', '#feca57', '#1dd1a1', '#5f27cd', '#00d2d3'];
-            const confetti = document.createElement('div');
-            confetti.className = 'confetti';
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            confetti.style.width = (Math.random() * 10 + 5) + 'px';
-            confetti.style.height = (Math.random() * 10 + 5) + 'px';
-            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            document.getElementById('confetti-container').appendChild(confetti);
-            
-            setTimeout(() => {
-                confetti.remove();
-            }, 5000);
-        }
-
-        // Botón de sorpresa
-        document.getElementById('surprise-btn').addEventListener('click', function() {
-            // Revelar foto clara
-            photo.classList.add('clear');
-            
-            // Revelar mensaje del footer
-            footerMessage.classList.add('clear');
-            
-            // Deshabilitar el botón después de usarlo
-            this.disabled = true;
-            this.textContent = '¡Mi preciosa!';
-            
-            // Lluvia de confeti
-            for (let i = 0; i < 100; i++) {
-                setTimeout(createConfetti, i * 50);
-            }
-            
-            // Cambiar el mensaje
-            document.querySelector('.message').innerHTML = `
-                <p>¡Ya puedes abrir tu regalo💘💝! 🎉</p>
-                <p>Quiero que hoy, en tu día y además tu primer cumpleaños siendo novios, sientas todo mi amor aunque no pueda estar ahí.</p>
-                <p>Prometo que haremos una celebración juntos apenas podamos vernos.</p>
-                <p>¡Te amo demasiado! 💖</p>
-            `;
-            
-            // Reproducir música si no está sonando
-            if (!musicPlaying) {
-                music.play();
-                musicPlaying = true;
-                musicControl.innerHTML = '<i class="fas fa-pause"></i>';
-            }
-            
-            // Desplazarse suavemente hacia arriba para ver el mensaje
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-
-        // Iniciar algunos corazones al cargar
-        for (let i = 0; i < 20; i++) {
-            setTimeout(createHeart, i * 150);
-        }
-    </script>
 </body>
 </html>
