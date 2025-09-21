@@ -1,101 +1,248 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>🌸 6 meses Juntos  🌸</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Flores Amarillas — Para Ti</title>
+  <meta name="description" content="Página estilo reel con girasoles y música de fondo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      background: #ffe6f0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: #b30059;
-      text-align: center;
-      padding: 50px;
+    :root{
+      --bg1:#fff7cc; /* amarillo pastel */
+      --bg2:#ffe29a; /* gradiente */
+      --ink:#2b2b2b;
+      --accent:#ffb703; /* botón */
+      --accent2:#fb8500; /* hover */
+      --reel-w: min(480px, 90vw);
+      --reel-h: calc(var(--reel-w) * 16 / 9);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; background: radial-gradient(1200px 800px at 20% 0%, var(--bg2), var(--bg1));
+      font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--ink);
+      display:grid; place-items:center; padding:16px;
+    }
+    .frame{position:relative; width:var(--reel-w); height:calc(100svh - 32px); max-height:900px; aspect-ratio:9/16;
+      border-radius:24px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.2);
+      background: linear-gradient(180deg,#fff 0%, #fff8dc 50%, #fff2b6 100%);
+      border:1px solid #f3e29f;
     }
 
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      color: #cc0066;
-    }
+    /* Fondo con girasoles flotantes */
+    .sunfield{position:absolute; inset:0; overflow:hidden; pointer-events:none;}
+    .sunfield .sun{position:absolute; font-size:clamp(28px, 4.5vw, 48px); filter:drop-shadow(0 4px 6px rgba(0,0,0,.15)); opacity:.85; animation: floatUp linear infinite;}
+    @keyframes floatUp{from{transform:translateY(20%)} to{transform:translateY(-120%)} }
 
-    .countdown {
-      font-size: 3em;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
+    /* Capa de degradé suave arriba/abajo */
+    .vignette{position:absolute; inset:0; background:linear-gradient(0deg, rgba(255,255,255,0) 40%, rgba(255,255,255,.6) 100%),
+                                           linear-gradient(180deg, rgba(255,255,255,0) 55%, rgba(255,255,255,.75) 100%); pointer-events:none}
 
-    .time-box {
-      background-color: #ffd9ec;
-      border-radius: 20px;
-      padding: 20px;
-      min-width: 100px;
-      box-shadow: 0 0 10px #ff99cc;
-    }
+    /* Contenido principal como un reel */
+    .content{position:absolute; inset:0; display:flex; flex-direction:column; justify-content:space-between; padding:18px 16px 72px}
 
-    .label {
-      font-size: 0.6em;
-      margin-top: 5px;
-      color: #660033;
-    }
+    .header{display:flex; align-items:center; gap:12px;}
+    .avatar{width:42px; height:42px; border-radius:50%; background:#ffd166; display:grid;place-items:center; font-weight:700}
+    .title{line-height:1.1}
+    .title .who{font-weight:700}
+    .title .hint{font-size:.85rem; opacity:.7}
 
-    footer {
-      margin-top: 50px;
-      font-size: 1em;
-      color: #993366;
-    }
+    .message{margin:6px 0; padding:16px 18px; background:rgba(255,255,255,.78); border:1px dashed #f0d372; border-radius:18px; backdrop-filter:blur(6px);
+      font-family:"Playfair Display", serif; font-size:clamp(18px, 2.6vw, 26px); line-height:1.35}
+    .message[contenteditable="true"]:focus{outline:2px solid #ffd166}
+
+    .footer{position:absolute; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:space-between; padding:12px 14px;}
+    .controls{display:flex; gap:10px;}
+    .btn{appearance:none; border:none; padding:10px 14px; border-radius:999px; background:var(--accent); color:#1f1300; font-weight:700; cursor:pointer; box-shadow:0 8px 18px rgba(251,133,0,.25)}
+    .btn:hover{background:var(--accent2)}
+    .ghost{background:rgba(255,255,255,.85); border:1px solid #ffe08a}
+
+    .rightrail{position:absolute; right:8px; bottom:88px; display:flex; flex-direction:column; gap:18px; align-items:center}
+    .iconbtn{width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,.9); border:1px solid #ffe08a; display:grid; place-items:center; cursor:pointer; box-shadow:0 6px 14px rgba(0,0,0,.12)}
+    .iconbtn:active{transform:translateY(1px)}
+    .count{font-size:.8rem; opacity:.7; text-align:center}
+
+    .ticker{position:absolute; left:50%; transform:translateX(-50%); bottom:56px; font-size:.85rem; opacity:.8}
+
+    /* corazones al dar doble click */
+    .heart{position:absolute; font-size:34px; animation: pop 1s ease-out forwards; pointer-events:none}
+    @keyframes pop{0%{transform:translate(-50%,-50%) scale(.8); opacity:0} 15%{opacity:1; transform:translate(-50%,-60%) scale(1.1)} 100%{transform:translate(-50%,-120%) scale(1.1); opacity:0}}
+
+    /* Etiqueta para California <-> México */
+    .badge{position:absolute; top:12px; right:12px; background:rgba(255,255,255,.9); border:1px solid #ffe08a; padding:6px 10px; border-radius:999px; font-size:.82rem}
+
+    /* Indicaciones iniciales */
+    .tap-overlay{position:absolute; inset:0; background:rgba(255,247,222,.9); display:none; align-items:center; justify-content:center; text-align:center; padding:20px}
+    .tap-overlay.show{display:flex}
+    .tap-overlay .card{background:white; border:1px solid #ffe08a; border-radius:18px; padding:16px 18px; box-shadow:0 12px 30px rgba(0,0,0,.15)}
+
+    /* Pequeños ajustes en pantallas estrechas */
+    @media (max-height:640px){ .content{padding-bottom:84px} }
   </style>
 </head>
 <body>
+  <div class="frame" id="reel">
+    <div class="sunfield" aria-hidden="true" id="sunfield"></div>
+    <div class="vignette" aria-hidden="true"></div>
 
-  <h1>⏳ ¡Faltan para vernos! 💖</h1>
-  <div class="countdown">
-    <div class="time-box">
-      <div id="days">00</div>
-      <div class="label">días</div>
+    <div class="badge" id="badge">México 🇲🇽 ↔ California 🇺🇸</div>
+
+    <div class="content">
+      <div class="header">
+        <div class="avatar" id="avatar">🌻</div>
+        <div class="title">
+          <div class="who" id="who">Para: <span id="toName">Mi Naty preciosa </span></div>
+          <div class="hint">21 de septiembre 2025</div>
+        </div>
+      </div>
+
+      <div class="message" id="message" contenteditable="true" spellcheck="false" aria-label="Escribe tu mensaje">
+        Hoy te mando girasoles amarillos (virtuales) desde México hasta California. Eres mi primavera en cualquier estación. Y el motivo de mi florecer todos los días. 💛
+      </div>
+
+      <div class="footer">
+        <div class="controls">
+          <button class="btn" id="playBtn">▶︎ Reproducir</button>
+          <button class="btn ghost" id="shareBtn">Compartir</button>
+          <button class="btn ghost" id="fullscreenBtn">Pantalla completa</button>
+        </div>
+        <div class="ticker">Doble toque para enviar ❤️</div>
+      </div>
+
+      <div class="rightrail">
+        <div class="iconbtn" id="likeBtn" title="Me gusta">❤️</div>
+        <div class="count" id="likeCount">0</div>
+        <div class="iconbtn" id="copyBtn" title="Copiar enlace">🔗</div>
+      </div>
     </div>
-    <div class="time-box">
-      <div id="hours">00</div>
-      <div class="label">horas</div>
+
+    <div class="tap-overlay" id="tapOverlay">
+      <div class="card">
+        <strong>Activa el audio</strong>
+        <p style="margin:8px 0 0 0;">Por políticas del navegador, el sonido comienza cuando tocas “Reproducir”.</p>
+      </div>
     </div>
-    <div class="time-box">
-      <div id="minutes">00</div>
-      <div class="label">minutos</div>
-    </div>
-    <div class="time-box">
-      <div id="seconds">00</div>
-      <div class="label">segundos</div>
-    </div>
+
+    <!-- AUDIO local: coloca tus archivos en /audio dentro del proyecto -->
+    <audio id="bgm" preload="auto" loop>
+      <source src="floricienta.mp3" type="audio/mpeg" />
+      <source src="audio/flores_amarillas.ogg" type="audio/ogg" />
+      Tu navegador no soporta audio HTML5.
+    </audio>
   </div>
 
-  <footer>
-    💌 Cada segundo más cerca de ti 🌷
-  </footer>
-
   <script>
-    const countdownDate = new Date("August 15, 2025 11:00:00").getTime();
+    // Utilidad: leer parámetros ?name=&msg=&audio=
+    const params = new URLSearchParams(location.search);
+    const toName = params.get('name') || 'Mi amor';
+    const startMsg = params.get('msg');
+    const audioURL = params.get('audio');
 
-    const x = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
+    document.getElementById('toName').textContent = toName;
+    if(startMsg){ document.getElementById('message').textContent = decodeURIComponent(startMsg); }
+    if(audioURL){ document.getElementById('bgm').src = audioURL; }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // Generar girasoles flotantes
+    const sunfield = document.getElementById('sunfield');
+    const SUNS = 26; // cantidad
+    for(let i=0;i<SUNS;i++){
+      const el = document.createElement('div');
+      el.className = 'sun';
+      el.textContent = '🌻';
+      const left = Math.random()*100; // %
+      const dur = 18 + Math.random()*14; // s
+      const delay = -Math.random()*dur; // desfasar para comenzar ya flotando
+      el.style.left = left+'%';
+      el.style.bottom = (-10 + Math.random()*40)+'%';
+      el.style.animationDuration = dur+'s';
+      el.style.animationDelay = delay+'s';
+      sunfield.appendChild(el);
+    }
 
-      document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
-      document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
-      document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
-      document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+    // Reproducción
+    const audio = document.getElementById('bgm');
+    const playBtn = document.getElementById('playBtn');
+    const tapOverlay = document.getElementById('tapOverlay');
 
-      if (distance < 0) {
-        clearInterval(x);
-        document.querySelector(".countdown").innerHTML = "🎉 ¡Es el gran día, mi amor! 💘";
+    function updatePlayUI(){
+      playBtn.textContent = audio.paused ? '▶︎ Reproducir' : '⏸ Pausar';
+    }
+
+    playBtn.addEventListener('click', async ()=>{
+      try{
+        if(audio.paused){ await audio.play(); } else { audio.pause(); }
+      }catch(e){ console.warn(e); }
+      updatePlayUI();
+    });
+    audio.addEventListener('play', ()=>{ tapOverlay.classList.remove('show'); updatePlayUI(); });
+    audio.addEventListener('pause', updatePlayUI);
+
+    // Mostrar indicación si hay audio definido pero aún no suena
+    if(audioURL){ tapOverlay.classList.add('show'); }
+
+    // Doble toque / doble clic: corazones animados + "like"
+    const reel = document.getElementById('reel');
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCountEl = document.getElementById('likeCount');
+    let likes = 0;
+
+    function spawnHeart(x,y){
+      const h = document.createElement('div');
+      h.className = 'heart'; h.textContent = '❤️';
+      h.style.left = x+'px'; h.style.top = y+'px';
+      reel.appendChild(h); setTimeout(()=>h.remove(), 1000);
+    }
+
+    let lastTap=0;
+    reel.addEventListener('click', e=>{
+      const now = Date.now();
+      if(now - lastTap < 300){
+        likes++; likeCountEl.textContent = likes.toString();
+        spawnHeart(e.clientX, e.clientY);
       }
-    }, 1000);
-  </script>
+      lastTap = now;
+    });
+    likeBtn.addEventListener('click', ()=>{ likes++; likeCountEl.textContent = likes.toString(); });
 
+    // Copiar enlace con mensaje y nombre actuales
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', async ()=>{
+      const msg = document.getElementById('message').innerText.trim();
+      const url = new URL(location.href);
+      url.searchParams.set('name', toName);
+      url.searchParams.set('msg', encodeURIComponent(msg));
+      if(audioURL) url.searchParams.set('audio', audioURL);
+      try{ await navigator.clipboard.writeText(url.toString()); alert('Enlace copiado.'); }catch{ alert('No se pudo copiar el enlace.'); }
+    });
+
+    // Compartir nativo
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.addEventListener('click', async ()=>{
+      const msg = document.getElementById('message').innerText.trim();
+      const url = new URL(location.href);
+      url.searchParams.set('name', toName);
+      url.searchParams.set('msg', encodeURIComponent(msg));
+      if(audioURL) url.searchParams.set('audio', audioURL);
+      const shareData = { title: 'Flores amarillas 🌻', text: msg, url: url.toString() };
+      if(navigator.share){ await navigator.share(shareData); } else { alert('Tu navegador no soporta compartir nativo. Usa el botón de copiar enlace.'); }
+    });
+
+    // Pantalla completa
+    const fsBtn = document.getElementById('fullscreenBtn');
+    fsBtn.addEventListener('click', ()=>{
+      if(!document.fullscreenElement){ reel.requestFullscreen?.(); } else { document.exitFullscreen?.(); }
+    });
+
+    // Guardar mensaje localmente para editar sin perderlo
+    const msgBox = document.getElementById('message');
+    const KEY = 'reel-msg';
+    msgBox.addEventListener('input', ()=>{ localStorage.setItem(KEY, msgBox.innerHTML); });
+    if(!startMsg){
+      const saved = localStorage.getItem(KEY); if(saved) msgBox.innerHTML = saved;
+    }
+  </script>
 </body>
 </html>
