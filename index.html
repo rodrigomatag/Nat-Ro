@@ -603,10 +603,10 @@
         <g class="arm arm-right"><rect x="171" y="105" width="14" height="55" rx="6"/></g>
       </svg>
     </div>
-    <h1 class="boot-title">Un mensaje de<br/><em>WALL-E</em> para ti 🦆</h1>
-    <p class="boot-sub">Tengo algo muy importante que decirte hoy, patito... Enciéndeme para empezar.</p>
-    <button class="power-btn" onclick="bootUp()">🔋 Encender a WALL-E</button>
-    <p class="boot-hint">🔊 Actívale el sonido de tu celular para escuchar sus bips</p>
+    <h1 class="boot-title">Un mensaje de<br/><em>WALL-E (YO)</em> para mi Natypreciosa 🦆</h1>
+    <p class="boot-sub">Tengo algo muy importante que decirte hoy mi patito... Por favor inicia el sistema de tu Nerdillo de electrónica 🤓.</p>
+    <button class="power-btn" onclick="bootUp()">Encender a WALL-E</button>
+    <p class="boot-hint">Sube el volumen si no se escucha mi amor </p>
   </div>
 
   <!-- ══════════════════════════════════════
@@ -733,46 +733,170 @@
        chest: 'show' | 'active' | 'open'
        showBook: true
   ═══════════════════════════════════════════════════ */
-  const STORY = [
-    { type: 'system', bg: 'earth',
-      text: '🔋 Cargando sistemas... ¡BIP-BIP! WALL-E en línea.' },
 
-    { type: 'walle', bg: 'earth',
-      text: '¡Hola patito! 🦆 Soy WALL-E, y hoy vengo con una misión muy especial.' },
+const STORY = [
+  {
+    type: 'system',
+    bg: 'earth',
+    text: 'Cargando sistemas... ¡BIP-BIP! WALL-E en línea.'
+  },
 
-    { type: 'walle', bg: 'earth',
-      text: '¿Sabes qué fecha es hoy? ¡31 de julio! Hoy cumplimos... 1 año y 6 meses juntos. 💕' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: '¡Hola, patito! 🦆 Soy WALL-E y hoy vengo con una misión muy especial.'
+  },
 
-    { type: 'walle', bg: 'earth',
-      text: '[TU MENSAJE AQUÍ: cuéntale aquí cómo te has sentido en este tiempo juntos, o algo bonito de este último mes]' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Para esta ocasión, mi amor, quise dejar que mi espíritu de nerdsillo decidiera cómo hacer algo muy lindo para ti. 🤓💕'
+  },
 
-    { type: 'walle', bg: 'earth', showPhotos: true,
-      text: 'Yo, como buen WALL-E, guardo tesoros de todo lo que encuentro en el camino... y estos son algunos de los nuestros. 📷' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Te he contado que WALL-E es una película que me gusta muchísimo… pero ahora tiene un significado todavía más especial, porque tú te convertiste en mi EVA. 🤖❤️'
+  },
 
-    { type: 'walle', bg: 'earth',
-      text: '[TU MENSAJE AQUÍ: qué representan estos recuerdos para ti]' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: '¿Sabes qué fecha es hoy? ¡31 de julio! Hoy cumplimos 1 año y 6 meses juntos. Un año y medio desde que comenzó esta historia tan hermosa.'
+  },
 
-    { type: 'walle', bg: 'space', hidePhotos: true, chest: 'show',
-      text: 'Pero de todos los tesoros que he encontrado, hoy quiero darte uno nuevo... uno muy especial. 👀' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'En todo este tiempo me has hecho sentir profundamente amado. A tu lado he descubierto una conexión que nunca había sentido y cada día tengo más claro que quiero construir contigo un hogar, una vida y muchos sueños.'
+  },
 
-    { type: 'walle', bg: 'space', chest: 'active',
-      text: 'Anda, ábrelo tú... tócame el cofre. ✨' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Y como buen WALL-E, guardo con muchísimo cariño los tesoros que encuentro en el camino… Hoy vengo a mostrarte un recuerdo que para mí vale oro. ✨'
+  },
 
-    { type: 'walle', bg: 'space', showBook: true,
-      text: 'Se llama "El arte de amar", de Erich Fromm.' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    showPhotos: true,
+    text: 'Déjame nombrarlo: “Completamente tu tipo”. Porque sí, amor… tú eres completamente mi tipo y yo soy completamente el tuyooo. 🤭💕'
+  },
 
-    { type: 'walle', bg: 'space',
-      text: 'No es una novela ni un cuento de aventuras... es un libro que dice que amar de verdad no es solo un sentimiento que nos pasa, sino algo que se aprende y se practica cada día, como un arte.' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Este recuerdo, o más bien esta pequeña fracción del video, tiene un significado enorme para mí, porque representa demasiadas cosas: quiénes éramos entonces, todo lo que sentíamos y todo lo que hemos construido desde aquel momento.'
+  },
 
-    { type: 'walle', bg: 'space',
-      text: '[TU MENSAJE AQUÍ: por qué elegiste regalarle este libro / qué significa para ti]' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Cuando se grabó ese video yo ya estaba completamente enamorado de ti… y lo sigo estando. Lo que ha cambiado desde entonces es la seguridad, la confianza y la fuerza que ahora existen en nuestra relación.'
+  },
 
-    { type: 'walle', bg: 'space',
-      text: '[TU MENSAJE AQUÍ: la dedicatoria que quieres escribirle dentro del libro]' },
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Nuestro amor ya tenía una base muy fuerte, pero todavía vivíamos esa primera etapa del enamoramiento y no sabíamos con certeza qué sucedería después. Aunque no te lo decía, ese era uno de mis mayores miedos, porque tú ya significabas demasiado para mí.'
+  },
 
-    { type: 'walle', bg: 'space',
-      text: 'Feliz aniversario, mi patito. 1 año y 6 meses, y quiero seguir amándote cada día... con arte, con paciencia, y con todo mi corazón. 🤖💕' }
-  ];
+  {
+    type: 'walle',
+    bg: 'earth',
+    text: 'Habías llegado a mi vida directamente enviada por Dios, como un ángel para mí. Y hoy, al mirar este recuerdo, siento una inmensa alegría al saber que aquel amor no solamente permaneció: también maduró, se fortaleció y se convirtió en algo todavía más hermoso.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    hidePhotos: true,
+    chest: 'show',
+    text: 'Pero, de todos los tesoros que he encontrado y guardado en nuestro camino, hoy quiero entregarte uno nuevo… uno muy especial. 👀'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    chest: 'active',
+    text: 'Anda, mi amor… ábrelo tú. Toca el cofre. ✨'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    showBook: true,
+    text: 'Se llama “El arte de amar”, de Erich Fromm. 📖💕'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'No es una novela ni un cuento de aventuras. Es un libro que plantea que amar verdaderamente no es solamente un sentimiento que nos sucede, sino un arte que se aprende y se practica cada día.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Decidí regalártelo no porque considere que sea la única forma de amar, ni porque piense que contiene una manera completamente correcta que debamos seguir. Mucho menos quiero imponerte una forma de vivir el amor.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Quise regalártelo porque, gracias a este libro, pude madurar y comprender muchas cosas del amor que no son triviales y que, si no se entienden, pueden convertirse en malos entendidos.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Este libro me enseñó a mirar el amor como un arte que necesita teoría, práctica, paciencia y constancia. De alguna forma, me ayudó a estar listo para tu llegada y a reconocer un amor tan libre como el tuyo y un corazón tan puro como el que posees.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Como tú misma has dicho, no todas las personas son capaces de valorar verdaderamente el amor o la amistad. Yo quiero aprender a valorar y cuidar cada día todo el amor que tú me entregas.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'También pensé en regalártelo porque me encantaría que pudiéramos leerlo juntos y leerte en persona algunos de los fragmentos que más amo, tal como tú lo hiciste conmigo cuando me regalaste “La insoportable levedad del ser”.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Ese momento también lo guardo como uno de los tesoros más hermosos de nuestra historia. Por eso, más que entregarte solamente un libro, quiero regalarte una nueva experiencia para compartir contigo.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Y ahora, mi amor, quiero mostrarte la dedicatoria que escribí especialmente para ti… ❤️'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Este libro es un acto de amor para el amor de mi vida y una promesa de constancia y dedicación. Es mi compromiso de aprender cada día a amarte como mereces y de hacer que mi amor se sienta siempre como libertad, respeto, compañía y paz.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Prometo amarte sin egoísmo, estar pendiente de ti y procurar que siempre puedas acudir a mí para todo lo que necesites. Prometo darte lo mejor de mí y trabajar constantemente para ser un buen hombre para ti y, si Dios me lo permite, algún día también un buen esposo.'
+  },
+
+  {
+    type: 'walle',
+    bg: 'space',
+    text: 'Te amo, Natalia. Feliz aniversario, mi patito. Ya son 1 año y 6 meses juntos, y quiero seguir amándote cada día con arte, paciencia, libertad y todo mi corazón. 🤖💕'
+  }
+];
+
 
   /* ═══════════════════════════════════════════════════
      MOTOR DE LA HISTORIA
