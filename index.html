@@ -238,6 +238,7 @@
     }
 
     .walle-wrap {
+      position: relative;
       width: 160px;
       margin-bottom: 0.8rem;
       animation: bob 3s ease-in-out infinite;
@@ -273,6 +274,40 @@
 
     .walle-wrap.blink .eye-lens, .walle-wrap.blink .eye-pupil { animation: blink 0.3s ease; }
     @keyframes blink { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.15); } }
+
+    /* burbuja flotante de "voz" ambiental de WALL-E (independiente del diálogo) */
+    .walle-float-label {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -100%) scale(0.9);
+      background: rgba(255,255,255,0.96);
+      color: #6b3a1f;
+      font-family: 'VT323', monospace;
+      font-size: 1.05rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 7;
+    }
+    .walle-float-label::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 6px 6px 0 6px;
+      border-style: solid;
+      border-color: rgba(255,255,255,0.96) transparent transparent transparent;
+    }
+    .walle-float-label.show {
+      opacity: 1;
+      transform: translate(-50%, -112%) scale(1);
+    }
 
     /* speech bubble */
     .speech-bubble {
@@ -329,11 +364,10 @@
     }
     @keyframes hintPulse { from { opacity: 0.4; } to { opacity: 0.9; } }
 
-    /* memory strip (treasures / photos) */
+    /* recuerdo en video */
     .memory-strip {
       display: flex;
-      gap: 8px;
-      overflow-x: auto;
+      justify-content: center;
       max-width: 340px;
       width: 100%;
       margin-bottom: 0.8rem;
@@ -345,15 +379,15 @@
     }
     .memory-strip.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
-    .memory-card {
-      flex-shrink: 0;
-      width: 78px; height: 78px;
-      border-radius: 12px;
-      overflow: hidden;
+    .memory-video {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 16px;
       border: 2px solid rgba(255,255,255,0.7);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.45);
+      display: block;
+      background: #000;
     }
-    .memory-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     /* treasure chest */
     .chest-wrap {
@@ -475,6 +509,41 @@
       margin-bottom: 1.6rem;
     }
 
+    /* dedicatoria de la canción */
+    .song-dedication { margin-bottom: 1.6rem; text-align: left; }
+
+    .song-photo-wrap {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.45);
+      margin-bottom: 1rem;
+    }
+
+    .song-photo { width: 100%; display: block; }
+
+    .song-label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.75rem;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+    }
+
+    .song-couple {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 78px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55));
+    }
+
     .finale-message {
       background: rgba(255,255,255,0.94);
       color: #3D1A2E;
@@ -553,6 +622,7 @@
       font-style: italic;
       color: rgba(255,255,255,0.9);
       font-size: 0.95rem;
+      text-align: center;
     }
 
     .confetti-piece {
@@ -624,7 +694,9 @@
     </div>
 
     <div class="stage" id="stage">
-      <div class="memory-strip" id="memory-strip"></div>
+      <div class="memory-strip" id="memory-strip">
+        <video class="memory-video" src="natypreciosa.mp4" controls playsinline preload="metadata"></video>
+      </div>
 
       <div class="chest-wrap" id="chest-wrap">
         <svg class="chest-svg" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
@@ -644,6 +716,7 @@
       </div>
 
       <div class="walle-wrap" id="walle-wrap">
+        <div class="walle-float-label" id="walle-float"></div>
         <svg class="walle-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
           <ellipse class="walle-shadow" cx="110" cy="205" rx="55" ry="10"/>
           <rect x="35" y="150" width="55" height="40" rx="14" class="tread"/>
@@ -690,12 +763,35 @@
       <div class="count-item"><span class="count-num mono" id="minutes">--</span><span class="count-label">min</span></div>
     </div>
 
-    <div class="finale-message">
-<!-- ════════ EDITA AQUÍ 👇 tu mensaje final firmado, el que quieras que quede como cierre de la historia ════════ -->
-[TU MENSAJE AQUÍ: escribe el mensaje final que quieres dejarle, tu despedida de esta sorpresa]
-
-<strong>Te amo. 💖</strong>
-      <div style="text-align:right; margin-top:1rem; font-family:'Playfair Display', serif; font-style:italic; color:var(--pink-deep);">Con todo mi amor, tu WALL-E 🤖</div>
+    <!-- ════════ Dedicatoria de la canción "novatos" - HUMBE ════════ -->
+    <div class="song-dedication">
+      <div class="song-photo-wrap">
+        <img class="song-photo" src="novatos.jpeg" alt="novatos - HUMBE" />
+        <div class="song-label">Nuestra dedicatoria 🎶</div>
+        <svg class="song-couple" viewBox="0 0 90 60" xmlns="http://www.w3.org/2000/svg">
+          <g transform="translate(2,10)">
+            <rect x="0" y="18" width="30" height="22" rx="6" fill="#C9793C" stroke="#8A4E24" stroke-width="2"/>
+            <rect x="4" y="4" width="22" height="9" rx="4" fill="#C9793C" stroke="#8A4E24" stroke-width="2"/>
+            <circle cx="9" cy="8.5" r="4" fill="#E9E2D3" stroke="#B9AF98" stroke-width="1"/>
+            <circle cx="21" cy="8.5" r="4" fill="#E9E2D3" stroke="#B9AF98" stroke-width="1"/>
+            <circle cx="9" cy="8.5" r="1.6" fill="#3a2c22"/>
+            <circle cx="21" cy="8.5" r="1.6" fill="#3a2c22"/>
+          </g>
+          <g transform="translate(48,4)">
+            <ellipse cx="20" cy="26" rx="20" ry="24" fill="#F5F8FA" stroke="#CBD8DE" stroke-width="2"/>
+            <path d="M4 20 Q20 12 36 20" stroke="#4FC3E8" stroke-width="5" fill="none" stroke-linecap="round"/>
+          </g>
+        </svg>
+      </div>
+      <div class="music-player">
+        <div class="music-cover" id="song-cover">🎵</div>
+        <div class="music-info">
+          <div class="music-title">novatos 💫</div>
+          <div class="music-artist">HUMBE</div>
+        </div>
+        <button class="music-btn" id="song-btn" onclick="toggleSong()">▶</button>
+      </div>
+      <audio id="song-audio" src="novatos.mp3"></audio>
     </div>
 
     <div class="music-player">
@@ -728,8 +824,8 @@
      escribir tus propias palabras.
      Campos opcionales por escena:
        bg: 'earth' | 'space'   -> cambia el fondo
-       showPhotos: true        -> muestra la tira de fotos recuerdo
-       hidePhotos: true        -> la oculta
+       showPhotos: true        -> muestra el video recuerdo
+       hidePhotos: true        -> lo oculta
        chest: 'show' | 'active' | 'open'
        showBook: true
   ═══════════════════════════════════════════════════ */
@@ -908,6 +1004,7 @@ const STORY = [
   let muted = false;
   let audioCtx = null;
   let typingHandle = null;
+  let idleChatterTimer = null;
 
   const stage = document.getElementById('stage');
   const sky = document.getElementById('sky');
@@ -916,18 +1013,12 @@ const STORY = [
   const bubbleText = document.getElementById('bubble-text');
   const tapHint = document.getElementById('tap-hint');
   const walleWrap = document.getElementById('walle-wrap');
+  const walleFloat = document.getElementById('walle-float');
   const memoryStrip = document.getElementById('memory-strip');
   const chestWrap = document.getElementById('chest-wrap');
   const bookWrap = document.getElementById('book-wrap');
   const hudDots = document.getElementById('hud-dots');
-
-  const MEMORIES = [
-    { src: 'foto1.jpeg', caption: 'El día que todo comenzó ✨' },
-    { src: 'foto3.jpeg', caption: 'Nuestro primer monster juntos 🌸' },
-    { src: 'foto2.jpeg', caption: 'Aventura en el camión 💕' },
-    { src: 'foto4.jpeg', caption: 'Contigo todo es más bonito 🌷' },
-    { src: 'foto5.jpeg', caption: 'Mi futura esposa 🥰' }
-  ];
+  const storyApp = document.getElementById('story-app');
 
   function buildHud() {
     hudDots.innerHTML = '';
@@ -943,16 +1034,6 @@ const STORY = [
     dots.forEach((d, i) => {
       d.classList.toggle('done', i < sceneIndex);
       d.classList.toggle('current', i === sceneIndex);
-    });
-  }
-
-  function buildMemories() {
-    memoryStrip.innerHTML = '';
-    MEMORIES.forEach(m => {
-      const card = document.createElement('div');
-      card.className = 'memory-card';
-      card.innerHTML = `<img src="${m.src}" alt="${m.caption}" />`;
-      memoryStrip.appendChild(card);
     });
   }
 
@@ -991,6 +1072,58 @@ const STORY = [
     document.getElementById('mute-btn').textContent = muted ? '🔇' : '🔊';
   }
 
+  /* ─── VOZ AMBIENTAL DE WALL-E (independiente del avance de la historia) ─── */
+  function showFloatLabel(text) {
+    if (!walleFloat) return;
+    walleFloat.textContent = text;
+    walleFloat.classList.add('show');
+    setTimeout(() => walleFloat.classList.remove('show'), 1500);
+  }
+
+  function playWalleName() {
+    if (muted) { showFloatLabel('waaalleee... 🤖'); return; }
+    ensureAudio();
+    if (!audioCtx) return;
+    const t0 = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sawtooth';
+    gain.gain.setValueAtTime(0.0001, t0);
+    gain.gain.linearRampToValueAtTime(0.13, t0 + 0.05);
+    osc.frequency.setValueAtTime(320, t0);
+    osc.frequency.linearRampToValueAtTime(620, t0 + 0.22); // "Waaa"
+    osc.frequency.linearRampToValueAtTime(480, t0 + 0.32); // pequeño valle
+    osc.frequency.linearRampToValueAtTime(900, t0 + 0.58); // "leee"
+    osc.frequency.linearRampToValueAtTime(700, t0 + 0.78); // cola
+    gain.gain.linearRampToValueAtTime(0.0001, t0 + 0.88);
+    osc.connect(gain).connect(audioCtx.destination);
+    osc.start(t0);
+    osc.stop(t0 + 0.92);
+    walleWrap.classList.add('talking');
+    setTimeout(() => walleWrap.classList.remove('talking'), 900);
+    showFloatLabel('waaalleee... 🤖');
+  }
+
+  function idleChirp() {
+    const n = 1 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < n; i++) {
+      setTimeout(() => beep(1300 + Math.random() * 700, 0.05), i * 150);
+    }
+    showFloatLabel('bip bip ✨');
+  }
+
+  function scheduleIdleChatter() {
+    const delay = 6000 + Math.random() * 9000;
+    idleChatterTimer = setTimeout(() => {
+      const storyVisible = storyApp.classList.contains('visible');
+      if (storyVisible && !isTyping && !waitingForChest) {
+        if (Math.random() < 0.45) playWalleName();
+        else idleChirp();
+      }
+      scheduleIdleChatter();
+    }, delay);
+  }
+
   function typeText(text, speed) {
     return new Promise(resolve => {
       bubbleText.textContent = '';
@@ -1027,7 +1160,7 @@ const STORY = [
     if (scene.bg === 'space') sky.classList.add('phase-space');
     if (scene.bg === 'earth') sky.classList.remove('phase-space');
 
-    // recuerdos
+    // recuerdo en video
     if (scene.showPhotos) memoryStrip.classList.add('visible');
     if (scene.hidePhotos) memoryStrip.classList.remove('visible');
 
@@ -1085,6 +1218,7 @@ const STORY = [
   }
 
   function showFinale() {
+    clearTimeout(idleChatterTimer);
     document.getElementById('story-app').classList.remove('visible');
     const finale = document.getElementById('finale-screen');
     finale.classList.add('visible');
@@ -1113,8 +1247,8 @@ const STORY = [
       boot.style.display = 'none';
       document.getElementById('story-app').classList.add('visible');
       buildHud();
-      buildMemories();
       advance();
+      scheduleIdleChatter();
     }, 700);
   }
 
@@ -1181,6 +1315,24 @@ const STORY = [
       btn.textContent = '⏸';
       cover.classList.add('playing');
       isPlaying = true;
+    }
+  }
+
+  let isSongPlaying = false;
+  function toggleSong() {
+    const audio = document.getElementById('song-audio');
+    const btn = document.getElementById('song-btn');
+    const cover = document.getElementById('song-cover');
+    if (isSongPlaying) {
+      audio.pause();
+      btn.textContent = '▶';
+      cover.classList.remove('playing');
+      isSongPlaying = false;
+    } else {
+      audio.play().catch(() => {});
+      btn.textContent = '⏸';
+      cover.classList.add('playing');
+      isSongPlaying = true;
     }
   }
 </script>
