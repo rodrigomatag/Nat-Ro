@@ -794,16 +794,6 @@
       <audio id="song-audio" src="novatos.mp3"></audio>
     </div>
 
-    <div class="music-player">
-      <div class="music-cover" id="music-cover">🎵</div>
-      <div class="music-info">
-        <div class="music-title">Nuestra canción 💕</div>
-        <div class="music-artist">The first time</div>
-      </div>
-      <button class="music-btn" id="music-btn" onclick="toggleMusic()">▶</button>
-    </div>
-    <audio id="bg-music" loop src="musica.mp3"></audio>
-
     <button class="replay-btn" onclick="location.reload()">↺ Ver la historia otra vez</button>
 
     <p class="finale-footer">"Tú eres mi más bonita historia"</p>
@@ -1300,24 +1290,6 @@ const STORY = [
   }
 
   /* ─── MÚSICA ─── */
-  let isPlaying = false;
-  function toggleMusic() {
-    const audio = document.getElementById('bg-music');
-    const btn = document.getElementById('music-btn');
-    const cover = document.getElementById('music-cover');
-    if (isPlaying) {
-      audio.pause();
-      btn.textContent = '▶';
-      cover.classList.remove('playing');
-      isPlaying = false;
-    } else {
-      audio.play().catch(() => {});
-      btn.textContent = '⏸';
-      cover.classList.add('playing');
-      isPlaying = true;
-    }
-  }
-
   let isSongPlaying = false;
   function toggleSong() {
     const audio = document.getElementById('song-audio');
